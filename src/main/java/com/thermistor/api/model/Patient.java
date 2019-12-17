@@ -1,14 +1,15 @@
 package com.thermistor.api.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "patient")
 public class Patient {
     @Id
-    @Column
-    @GeneratedValue(generator = "seqPatient")
-    @SequenceGenerator(name = "seqPatient", sequenceName = "seq_patient")
+    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
     @Column(nullable = false)
@@ -22,6 +23,9 @@ public class Patient {
 
     @Column(nullable = false)
     public String lastname;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "patient", orphanRemoval = true)
+    private List<Measure> measures = new ArrayList<>();
 
     public Patient() {
     }
