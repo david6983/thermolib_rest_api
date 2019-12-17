@@ -13,16 +13,16 @@ public class Patient {
     private int id;
 
     @Column(nullable = false)
-    public int room;
+    private int room;
 
     @Column(nullable = false)
-    public int floor;
+    private int floor;
 
     @Column(nullable = false)
-    public String firstname;
+    private String firstname;
 
     @Column(nullable = false)
-    public String lastname;
+    private String lastname;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "patient", orphanRemoval = true)
     private List<Measure> measures = new ArrayList<>();

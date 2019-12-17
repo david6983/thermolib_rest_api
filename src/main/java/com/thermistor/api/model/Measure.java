@@ -1,7 +1,10 @@
 package com.thermistor.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name = "measure")
@@ -12,13 +15,14 @@ public class Measure {
     private int id;
 
     @Column(nullable = false)
-    public float temperature; // celsius degree
+    private float temperature; // celsius degree
 
     @Column(nullable = false)
-    public Date date;
+    private Date date;
 
     @ManyToOne
-    public Patient patient;
+    @JsonIgnore
+    private Patient patient;
 
     public Measure() {
     }
