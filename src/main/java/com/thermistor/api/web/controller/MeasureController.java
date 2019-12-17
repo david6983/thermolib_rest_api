@@ -64,5 +64,10 @@ public class MeasureController {
 
         return ResponseEntity.created(location).build();
     }
+
+    @DeleteMapping("/{patientId}")
+    public void deleteMeasureForUser(@PathVariable int patientId) {
+        measures.deleteAllByPatientId(patientId);
+    }
 }
 
