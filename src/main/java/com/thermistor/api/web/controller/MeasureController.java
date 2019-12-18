@@ -1,10 +1,10 @@
 package com.thermistor.api.web.controller;
 
 import com.thermistor.api.model.Measure;
-import com.thermistor.api.model.Patient;
+import com.thermistor.api.model.Sensor;
 import com.thermistor.api.repository.MeasureRepository;
-import com.thermistor.api.repository.PatientRepository;
-import com.thermistor.api.web.exceptions.PatientNotFoundException;
+import com.thermistor.api.repository.SensorRepository;
+import com.thermistor.api.web.exceptions.SensorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +12,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/measures")
 public class MeasureController {
     @Autowired
-    private PatientRepository patients;
+    private SensorRepository sensors;
 
     @Autowired
     private MeasureRepository measures;
@@ -29,28 +28,28 @@ public class MeasureController {
         return measures.findAll();
     }
 
-    @GetMapping("/{patientId}")
-    public Set<Measure> listMeasuresFromPatient(@PathVariable int patientId) {
-        return measures.findAllByPatientId(patientId);
+    @GetMapping("/{sensorId}")
+    public Set<Measure> listMeasuresFromSensor(@PathVariable int sensorId) {
+        return measures.findAllBySensorId(sensorId);
     }
 
-    @PostMapping("/{patientId}")
+    @PostMapping("/{sensorId}")
     public ResponseEntity<Measure> addMesure(
             @RequestBody Measure measure,
-            @PathVariable int patientId
+            @PathVariable int sensorId
     ) {
-        Patient foundPatient = patients
-                .findById(patientId)
+        Sensor foundSensor = sensors
+                .findById(sensorId)
                 .orElseThrow(
-                        () -> new PatientNotFoundException(
-                                "Can't find patient of id " + patientId
+                        () -> new SensorNotFoundException(
+                                "Can't find sensor of id " + sensorId
                         )
                 );
-        if (foundPatient == null) {
+        if (foundSensor == null) {
             return ResponseEntity.noContent().build();
         }
 
-        measure.setPatient(foundPatient);
+        measure.setSensor(foundSensor);
         Measure addedMeasure = measures.save(measure);
         if (addedMeasure == null) {
             return ResponseEntity.noContent().build();
@@ -65,9 +64,9 @@ public class MeasureController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/{patientId}")
-    public void deleteMeasureForUser(@PathVariable int patientId) {
-        measures.deleteAllByPatientId(patientId);
+    @DeleteMapping("/{sensorId}")
+    public void deleteMeasureForSensor(@PathVariable int sensorId) {
+        measures.deleteAllBySensorId(sensorId);
     }
 }
 

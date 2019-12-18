@@ -12,11 +12,11 @@ import java.util.Set;
 
 @Repository
 public interface MeasureRepository extends JpaRepository<Measure, Integer> {
-    @Query("select m from Measure m where m.patient.id = :patient")
-    Set<Measure> findAllByPatientId(@Param("patient") int patientId);
+    @Query("select m from Measure m where m.sensor.id = :sensor")
+    Set<Measure> findAllBySensorId(@Param("sensor") int sensorId);
 
-    @Query("delete from Measure m where m.patient.id = :patient")
+    @Query("delete from Measure m where m.sensor.id = :sensor")
     @Transactional
     @Modifying
-    void deleteAllByPatientId(@Param("patient") int patientId);
+    void deleteAllBySensorId(@Param("sensor") int sensorId);
 }

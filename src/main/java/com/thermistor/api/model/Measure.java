@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Optional;
 
 @Entity
 @Table(name = "measure")
@@ -22,15 +21,15 @@ public class Measure {
 
     @ManyToOne
     @JsonIgnore
-    private Patient patient;
+    private Sensor sensor;
 
     public Measure() {
     }
 
-    public Measure(float temperature, Date date, Patient patient) {
+    public Measure(float temperature, Date date, Sensor sensor) {
         this.temperature = temperature;
         this.date = date;
-        this.patient = patient;
+        this.sensor = sensor;
     }
 
     public int getId() {
@@ -57,11 +56,11 @@ public class Measure {
         this.date = date;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Sensor getSensor() {
+        return sensor;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
     }
 }

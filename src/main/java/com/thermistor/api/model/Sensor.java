@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "patient")
-public class Patient {
+@Table(name = "sensor")
+public class Sensor {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -18,38 +18,16 @@ public class Patient {
     @Column(nullable = false)
     private int floor;
 
-    @Column(nullable = false)
-    private String firstname;
-
-    @Column(nullable = false)
-    private String lastname;
-
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "patient", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "sensor", orphanRemoval = true)
     private List<Measure> measures = new ArrayList<>();
 
-    public Patient() {
+    public Sensor() {
     }
 
-    public Patient(int id, int room, int floor) {
+    public Sensor(int id, int room, int floor) {
         this.id = id;
         this.room = room;
         this.floor = floor;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     public int getId() {
