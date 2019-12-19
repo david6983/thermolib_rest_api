@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sensors")
+@CrossOrigin(origins = "*")
 public class SensorController {
     @Autowired
     private SensorRepository sensors;
