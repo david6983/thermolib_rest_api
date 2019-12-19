@@ -16,7 +16,6 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/measures")
-@CrossOrigin(origins = "*")
 public class MeasureController {
     @Autowired
     private SensorRepository sensors;
